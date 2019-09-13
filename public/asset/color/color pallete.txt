@@ -1,0 +1,15 @@
+ BOSSTRAP COLOR
+Color	Hex	RGB
+#d9534f	(217,83,79) 		merah
+#f9f9f9	(249,249,249)		putih
+#5bc0de	(91,192,222)		biru mentah
+#5cb85c	(92,184,92)		hijau
+#428bca	(66,139,202)		biru mateng
+
+ GOOGLE COLOR
+Color	Hex	RGB
+#008744	(0,135,68)		hijau
+#0057e7	(0,87,231)		biru
+#d62d20	(214,45,32)		merah
+#ffa700	(255,167,0)		kuning
+#ffffff	(255,255,255)		putih

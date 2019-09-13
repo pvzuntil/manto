@@ -1,0 +1,10 @@
+color
+
+primary 	#3498db
+success 	#2ecc71
+warning 	#f39c12
+alert 		#e74c3c
+
+white 		#ecf0f1
+secondarruy 	#95a5a6
+cloud         	#ecf0f1
