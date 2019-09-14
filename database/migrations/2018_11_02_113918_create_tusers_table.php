@@ -14,13 +14,13 @@ class CreateTusersTable extends Migration
     public function up()
     {
         Schema::create('tusers', function (Blueprint $table) {
-          $table->increments('id');
-          $table->text('nama');
-          $table->text('email');
-          $table->text('password');
-          $table->text('level');
-          $table->text('namaToko')->nullable();
-          $table->timestamps();
+            $table->increments('id');
+            $table->text('nama');
+            $table->text('email');
+            $table->text('password');
+            $table->text('level');
+            $table->text('namaToko')->nullable();
+            $table->timestamps();
         });
     }
 
