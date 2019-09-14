@@ -14,15 +14,15 @@ class CreateTpelsTable extends Migration
     public function up()
     {
         Schema::create('tpels', function (Blueprint $table) {
-          $table->increments('id');
-          $table->integer('idUser')->unsigned()->index();
-          $table->text('nama');
-          $table->text('total');
-          $table->text('bayar');
-          $table->integer('kodePembelian')->unsigned()->index();
-          $table->timestamps();
+            $table->increments('id');
+            $table->integer('idUser')->unsigned()->index();
+            $table->text('nama');
+            $table->text('total');
+            $table->text('bayar');
+            $table->unsignedBigInteger('kodePembelian');
+            $table->timestamps();
 
-          $table->foreign('idUser')->references('id')->on('tusers')->onDelete('cascade');
+            $table->foreign('idUser')->references('id')->on('tusers')->onDelete('cascade');
         });
     }
 
