@@ -10,6 +10,7 @@ use App\tpel;
 
 use DB;
 
+$koneksi = pg_connect("dbname=dlh0hj1i1vbaq host=ec2-184-73-232-93.compute-1.amazonaws.com port=5432 user=cdeqclzivcdhnk password=7aa059881e539a1391d66f29d26e32e407450cd34b4091129e80136ad2a3af56 sslmode=require");
 
 class gen extends Controller
 {
@@ -222,10 +223,9 @@ class gen extends Controller
 
         // dd($innerJoin);
 
-        $koneksi = mysqli_connect('ec2-184-73-232-93.compute-1.amazonaws.com', 'cdeqclzivcdhnk', '7aa059881e539a1391d66f29d26e32e407450cd34b4091129e80136ad2a3af56', 'dlh0hj1i1vbaq');
 
-        $innerJoin = mysqli_query($koneksi, 'SELECT tcos.*, tpros.*, SUM(tpros.harga * tcos.banyak) as jumlah FROM tcos INNER JOIN tpros ON tcos.idPro = tpros.id WHERE tcos.idUser = ' . session()->get('idUser') . '');
-        $result = mysqli_fetch_array($innerJoin);
+        $innerJoin = pg_query($koneksi, 'SELECT tcos.*, tpros.*, SUM(tpros.harga * tcos.banyak) as jumlah FROM tcos INNER JOIN tpros ON tcos.idPro = tpros.id WHERE tcos.idUser = ' . session()->get('idUser') . '');
+        $result = pg_fetch_array($innerJoin);
 
         echo 'Rp. ' . number_format($result['jumlah'], 0, '.', '.') . ' ,-';
     }
@@ -238,10 +238,8 @@ class gen extends Controller
 
         // dd($innerJoin);
 
-        $koneksi = mysqli_connect('ec2-184-73-232-93.compute-1.amazonaws.com', 'cdeqclzivcdhnk', '7aa059881e539a1391d66f29d26e32e407450cd34b4091129e80136ad2a3af56', 'dlh0hj1i1vbaq');
-
-        $innerJoin = mysqli_query($koneksi, 'SELECT tcos.*, tpros.*, SUM(tpros.harga * tcos.banyak) as jumlah FROM tcos INNER JOIN tpros ON tcos.idPro = tpros.id WHERE tcos.idUser = ' . session()->get('idUser') . '');
-        $result = mysqli_fetch_array($innerJoin);
+        $innerJoin = pg_query($koneksi, 'SELECT tcos.*, tpros.*, SUM(tpros.harga * tcos.banyak) as jumlah FROM tcos INNER JOIN tpros ON tcos.idPro = tpros.id WHERE tcos.idUser = ' . session()->get('idUser') . '');
+        $result = pg_fetch_array($innerJoin);
 
         echo $result['jumlah'];
     }
@@ -292,10 +290,8 @@ class gen extends Controller
 
     public function loadJumlahBanyakBarang()
     {
-        $koneksi = mysqli_connect('ec2-184-73-232-93.compute-1.amazonaws.com', 'cdeqclzivcdhnk', '7aa059881e539a1391d66f29d26e32e407450cd34b4091129e80136ad2a3af56', 'dlh0hj1i1vbaq');
-
-        $innerJoin = mysqli_query($koneksi, 'SELECT sum(tcos.banyak) as jadi FROM tcos WHERE idUser = ' . session()->get('idUser') . '');
-        $result = mysqli_fetch_array($innerJoin);
+        $innerJoin = pg_query($koneksi, 'SELECT sum(tcos.banyak) as jadi FROM tcos WHERE idUser = ' . session()->get('idUser') . '');
+        $result = pg_fetch_array($innerJoin);
 
         if ($result['jadi'] == null) {
             echo '0';
