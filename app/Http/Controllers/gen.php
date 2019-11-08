@@ -10,7 +10,6 @@ use App\tpel;
 
 use DB;
 
-$koneksi = pg_connect("dbname=dlh0hj1i1vbaq host=ec2-184-73-232-93.compute-1.amazonaws.com port=5432 user=cdeqclzivcdhnk password=7aa059881e539a1391d66f29d26e32e407450cd34b4091129e80136ad2a3af56 sslmode=require");
 
 class gen extends Controller
 {
@@ -224,8 +223,10 @@ class gen extends Controller
         // dd($innerJoin);
 
 
-        $innerJoin = pg_query($koneksi, 'SELECT tcos.*, tpros.*, SUM(tpros.harga * tcos.banyak) as jumlah FROM tcos INNER JOIN tpros ON tcos.idPro = tpros.id WHERE tcos.idUser = ' . session()->get('idUser') . '');
-        $result = pg_fetch_array($innerJoin);
+        // $innerJoin = DB::raw('SELECT tcos.*, tpros.*, SUM(tpros.harga * tcos.banyak) as jumlah FROM tcos INNER JOIN tpros ON tcos.idPro = tpros.id WHERE tcos.idUser = ' . session()->get('idUser') . '');
+        $innerJoin = tco::join('tpros', 'tcos.idPro', '=', 'tpros.id')->selectRaw('tcos.*, tpros.*')->whereRaw('tcos.idUser = ' . session()->get('idUser'))->get();
+        $jumlah = 0;
+        return response()->json($innerJoin);
 
         echo 'Rp. ' . number_format($result['jumlah'], 0, '.', '.') . ' ,-';
     }

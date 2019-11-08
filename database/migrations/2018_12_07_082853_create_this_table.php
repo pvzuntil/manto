@@ -15,8 +15,8 @@ class CreateThisTable extends Migration
     {
         Schema::create('this', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('idUser');
-            $table->unsignedBigInteger('kodePembelian');
+            $table->integer('idUser')->unsigned()->index();
+            $table->integer('kodePembelian')->unsigned()->index();
             $table->text('nama');
             $table->text('harga');
             $table->text('hargaBeli');
@@ -24,7 +24,7 @@ class CreateThisTable extends Migration
             $table->timestamps();
 
             $table->foreign('idUser')->references('id')->on('tusers')->onDelete('cascade');
-            $table->foreign('kodePembelian')->references('kodePembelian')->on('tpels')->onDelete('cascade');
+            // $table->foreign('kodePembelian')->references('kode')->on('tpels')->onDelete('cascade');
         });
     }
 

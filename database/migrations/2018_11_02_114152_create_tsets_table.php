@@ -14,15 +14,15 @@ class CreateTsetsTable extends Migration
     public function up()
     {
         Schema::create('tsets', function (Blueprint $table) {
-          $table->increments('id');
-          $table->integer('idUser')->unsigned()->index();
-          $table->text('imgProfil');
-          $table->text('imgSampul');
-          $table->text('syaratKetentuan');
-          $table->text('tema');
-          $table->timestamps();
+            $table->increments('id');
+            $table->integer('idUser')->unsigned()->index();
+            $table->text('imgProfil');
+            $table->text('imgSampul');
+            $table->text('syaratKetentuan');
+            $table->text('tema');
+            $table->timestamps();
 
-          $table->foreign('idUser')->references('id')->on('tusers')->onDelete('cascade');
+            $table->foreign('idUser')->references('id')->on('tusers')->onDelete('cascade');
         });
     }
 
