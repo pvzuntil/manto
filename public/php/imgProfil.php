@@ -1,20 +1,20 @@
 <?php
 
-if (isset($_POST['img'])){
+if (isset($_POST['img'])) {
 
-  $img = $_POST['img'];
+    $img = $_POST['img'];
 
-  $pecah = explode(',',$img);
-  $decryp = base64_decode($pecah[1]);
+    $pecah = explode(',', $img);
+    $decryp = base64_decode($pecah[1]);
 
-  $namaImg = time().'.png';
-  file_put_contents('../cropImg/'.$namaImg, $decryp);
+    $namaImg = time() . '.png';
+    file_put_contents('../cropImg/' . $namaImg, $decryp);
 
-  $koneksi = mysqli_connect('localhost', 'root','', 'webtokov2');
+    $koneksi = mysqli_connect('localhost', 'root', '', 'webtokov2');
 
-  mysqli_query($koneksi, 'UPDATE tsets SET imgProfil = "/cropImg/'.$namaImg.'" WHERE idUser = '.$_POST['idUser'].'');
+    mysqli_query($koneksi, 'UPDATE tsets SET imgProfil = "/cropImg/' . $namaImg . '" WHERE idUser = ' . $_POST['idUser'] . '');
 
-  // echo json_encode(tset::get());
+    // echo json_encode(tset::get());
 
-  // echo $pecah[1];
+    // echo $pecah[1];
 }

@@ -226,23 +226,26 @@ class gen extends Controller
         // $innerJoin = DB::raw('SELECT tcos.*, tpros.*, SUM(tpros.harga * tcos.banyak) as jumlah FROM tcos INNER JOIN tpros ON tcos.idPro = tpros.id WHERE tcos.idUser = ' . session()->get('idUser') . '');
         $innerJoin = tco::join('tpros', 'tcos.idPro', '=', 'tpros.id')->selectRaw('tcos.*, tpros.*')->whereRaw('tcos.idUser = ' . session()->get('idUser'))->get();
         $jumlah = 0;
-        return response()->json($innerJoin);
 
-        echo 'Rp. ' . number_format($result['jumlah'], 0, '.', '.') . ' ,-';
+        foreach ($innerJoin as $data) {
+            $hi = $data->harga * $data->banyak;
+            $jumlah = $jumlah + $hi;
+        }
+
+        echo 'Rp. ' . number_format($jumlah, 0, '.', '.') . ' ,-';
     }
 
     public function hitungTotalHarga2()
     {
-        // $innerJoin = tco::join('tpros','tcos.idPro','=','tpros.id')
-        //                   ->select(DB::raw('tcos.*, tpros.*'))
-        //                   ->where('tcos.idUser',2)->get();
+        $innerJoin = tco::join('tpros', 'tcos.idPro', '=', 'tpros.id')->selectRaw('tcos.*, tpros.*')->whereRaw('tcos.idUser = ' . session()->get('idUser'))->get();
+        $jumlah = 0;
 
-        // dd($innerJoin);
+        foreach ($innerJoin as $data) {
+            $hi = $data->harga * $data->banyak;
+            $jumlah = $jumlah + $hi;
+        }
 
-        $innerJoin = pg_query($koneksi, 'SELECT tcos.*, tpros.*, SUM(tpros.harga * tcos.banyak) as jumlah FROM tcos INNER JOIN tpros ON tcos.idPro = tpros.id WHERE tcos.idUser = ' . session()->get('idUser') . '');
-        $result = pg_fetch_array($innerJoin);
-
-        echo $result['jumlah'];
+        echo $jumlah;
     }
 
     public function updateBanyakBarangTambah(request $a)
@@ -291,13 +294,14 @@ class gen extends Controller
 
     public function loadJumlahBanyakBarang()
     {
-        $innerJoin = pg_query($koneksi, 'SELECT sum(tcos.banyak) as jadi FROM tcos WHERE idUser = ' . session()->get('idUser') . '');
-        $result = pg_fetch_array($innerJoin);
+        // $innerJoin = pg_query($koneksi, 'SELECT sum(tcos.banyak) as jadi FROM tcos WHERE idUser = ' . session()->get('idUser') . '');
+        // $result = pg_fetch_array($innerJoin);
+        $result = tco::where('idUser', session()->get('idUser'))->sum('banyak');
 
-        if ($result['jadi'] == null) {
+        if ($result == null) {
             echo '0';
         } else {
-            echo $result['jadi'];
+            echo $result;
         }
     }
 

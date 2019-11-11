@@ -13,27 +13,28 @@ use App\this;
 class riwayat extends Controller
 {
     //
-    public function index(){
+    public function index()
+    {
         if (session()->get('idUser') && session()->get('level') == 'admin' || session()->get('level') == 'kasir') {
-        // code...
+            // code...
             $isiUser = tuser::where([
-            'id'=>session()->get('idUser')
+                'id' => session()->get('idUser')
             ])->get();
 
             $isiSet = tset::where([
-            'id'=>session()->get('idUser')
+                'id' => session()->get('idUser')
             ])->get();
 
             $isiPel = tpel::where([
-                'idUser'=>session()->get('idUser')
+                'idUser' => session()->get('idUser')
             ])->orderBy('created_at', 'desc')->paginate(10);
 
-            return view('riw',[
-            'user'=>$isiUser[0],
-            'setting'=>$isiSet[0],
-            'pel'=>$isiPel,
+            return view('riw', [
+                'user' => $isiUser[0],
+                'setting' => $isiSet[0],
+                'pel' => $isiPel,
             ]);
-        }else {
+        } else {
             return redirect()->route('masuk');
         }
     }
@@ -41,10 +42,10 @@ class riwayat extends Controller
     public function hapus($id, $kodePembelian)
     {
         // dd($id.'   '.$kodePembelian);
-        
+
         tpel::destroy($id);
         this::where([
-            'kodePembelian'=>$kodePembelian
+            'kodePembelian' => $kodePembelian
         ])->delete();
 
         session()->flash('berhasilMenghapusRiwayat');

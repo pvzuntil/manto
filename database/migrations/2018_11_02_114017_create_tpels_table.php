@@ -19,7 +19,7 @@ class CreateTpelsTable extends Migration
             $table->text('nama');
             $table->text('total');
             $table->text('bayar');
-            $table->integer('kode');
+            $table->integer('kodePembelian');
             $table->timestamps();
 
             $table->foreign('idUser')->references('id')->on('tusers')->onDelete('cascade');

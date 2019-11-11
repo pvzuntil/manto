@@ -14,6 +14,8 @@
 
 @section('body')
 <input type="hidden" name="" id="_idUser" value="{{session()->get('idUser')}}">
+<input type="hidden" name="_token" id="_tokenLaravel" value="{{csrf_token()}}">
+
 
 
   <ul class="sidenav sidenav-fixed theming-sideBar trans" id="sidenav">
@@ -38,12 +40,12 @@
         <img src="{{$setting->imgProfil}}" alt="" class="circle materialboxed">
         <a href="#" class="white-text name">
         @if (session()->get('level') == 'admin')
-          ADMINISTRATOR  
+          ADMINISTRATOR
         @elseif(session()->get('level') == 'kasir')
           KASIR
         @elseif(session()->get('level') == 'inv')
           INVENTOR
-        @endif  
+        @endif
       </a>
       <a href="#" class="white-text email">
         {{session()->get('email')}}
@@ -149,7 +151,7 @@
                     <img src="{{$setting->imgProfil}}" alt="" width="200" class="materialboxed">
                   </div>
                 </div>
-                
+
                 <!-- FOTO SAMPULMAMAMAMAMAHNANBMAAHAHAHANAh -->
                 <hr>
                 <div class="row">
@@ -160,7 +162,7 @@
                     <img src="{{$setting->imgSampul}}" alt="" width="300" class="materialboxed">
                   </div>
                 </div>
-                
+
                 <!--  -->
               </div>
             </li>
@@ -183,7 +185,7 @@
                     <p>{{$user->nama}}</p>
                   </div>
                 </div>
-                
+
                 {{--  --}}
                 <hr>
                 <div class="row">
@@ -194,7 +196,7 @@
                     <p>{{$user->namaToko}}</p>
                   </div>
                 </div>
-                
+
                 {{--  --}}
                 <hr>
                 <div class="row">
@@ -205,7 +207,7 @@
                     <p>{{$user->email}}</p>
                   </div>
                 </div>
-                
+
                 <!--  -->
               </div>
             </li>
